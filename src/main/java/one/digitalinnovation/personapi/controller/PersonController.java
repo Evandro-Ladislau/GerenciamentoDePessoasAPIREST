@@ -11,22 +11,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/people")
 public class PersonController {
 
-    //criou um atributo da interface PersonRepository
     private PersonRepository personRepository;
 
-    //injecao de dependencia
-    @Autowired //indica para inspring injetar uma implementacao do tipo repository
+    @Autowired
     public PersonController(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
-    //criar um livro por isso usa post
     @PostMapping
     public MessageResponseDTO createPerson(@RequestBody Person person){
-        Person savePerson = personRepository.save(person);
+        Person savedPerson = personRepository.save(person);
         return MessageResponseDTO
                 .builder()
-                .message("Created person with ID" + savePerson.getId())
+                .message("Created person with ID" + savedPerson.getId())
                 .build();
     }
 }
